@@ -36,9 +36,11 @@ int main()
 
     clock_t end = clock();
 
+
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 
-    printf("%f \n", time_spent);
+    printf("Encrypted 5GB in %f seconds\n", time_spent);
+    printf("Speed is %f Gb/s\n",((1 / ((time_spent * 1.0) / 5)) * 8));
 
     dstu8845_free(ctx);
 
