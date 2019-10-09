@@ -1,5 +1,6 @@
 #include "strumok.h"
-
+#include <stdio.h>
+#include <time.h>
 
 int main()
 {
@@ -25,11 +26,21 @@ int main()
 
     dstu8845_init(ctx, key, key_size, iv);
 
-    uint8_t data[8888] = { 0 }, out[8888] = { 0 };
+    uint8_t out[1024 * 1024] = { 0 };
 
-    dstu8845_crypt(ctx, data, 8888, out);
+    clock_t begin = clock();
+
+    for (int i = 0; i < 1024 * 5; i++) {
+        dstu8845_crypt(ctx, out, 1024 * 1024, out);
+    }
+
+    clock_t end = clock();
+
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    printf("%f \n", time_spent);
 
     dstu8845_free(ctx);
-	
+
     return 0;
 }
