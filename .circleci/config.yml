@@ -16,7 +16,7 @@ jobs:
           cmake
           clang-6.0
           clang-format-6.0
-      - run: cmake ./    
+      - run: cmake ./ -DDIRTY=1   
       - run: make
       - run: ./main
 
@@ -35,7 +35,7 @@ jobs:
           apt-get install -y --allow-unauthenticated
           build-essential
           cmake
-      - run: cmake ./    
+      - run: cmake ./ -DDIRTY=1   
       - run: make
       - run: ./main
       

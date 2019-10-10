@@ -26,12 +26,12 @@ int main()
 
     dstu8845_init(ctx, key, key_size, iv);
 
-    uint8_t out[1024 * 1024] = { 0 };
+    uint8_t out[4096] = { 0 };
 
     clock_t begin = clock();
 
-    for (int i = 0; i < 1024 * 5; i++) {
-        dstu8845_crypt(ctx, out, 1024 * 1024, out);
+    for (int i = 0; i < 1024 * 15 * 256; i++) {
+        dstu8845_crypt(ctx, out, 4096, out);
     }
 
     clock_t end = clock();
@@ -39,8 +39,8 @@ int main()
 
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 
-    printf("Encrypted 5GB in %f seconds\n", time_spent);
-    printf("Speed is %f Gb/s\n",((1 / ((time_spent * 1.0) / 5)) * 8));
+    printf("Encrypted 15GB in %f seconds\n", time_spent);
+    printf("Speed is %f Gb/s\n",((1 / ((time_spent * 1.0) / 15)) * 8));
 
     dstu8845_free(ctx);
 

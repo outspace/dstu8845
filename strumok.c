@@ -690,7 +690,7 @@ struct Dstu8845Ctx_st {
     uint8_t   key_size; // Key size in bytes
 };
 
-void next_stream(Dstu8845Ctx *ctx, uint64_t *out_stream)
+static inline void next_stream(Dstu8845Ctx *ctx, uint64_t *out_stream)
 {
     uint64_t fsmtmp;
 
