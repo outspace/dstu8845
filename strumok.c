@@ -785,6 +785,107 @@ static inline void next_stream(Dstu8845Ctx *ctx, uint64_t *out_stream)
     out_stream[15] = (ctx->r[0] + ctx->S[15]) ^ ctx->r[1] ^ ctx->S[0];
 }
 
+static inline void next_stream_full_crypt(Dstu8845Ctx *ctx, uint64_t *in, uint64_t *out)
+{
+    uint64_t fsmtmp;
+
+    ctx->S[0] = a_mul(ctx->S[0]) ^ ctx->S[13] ^ ainv_mul(ctx->S[11]);
+    fsmtmp = ctx->r[1] + ctx->S[13];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[0] = in[0] ^ (ctx->r[0] + ctx->S[0]) ^ ctx->r[1] ^ ctx->S[1];
+
+    ctx->S[1] = a_mul(ctx->S[1]) ^ ctx->S[14] ^ ainv_mul(ctx->S[12]);
+    fsmtmp = ctx->r[1] + ctx->S[14];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[1] = in[1] ^ (ctx->r[0] + ctx->S[1]) ^ ctx->r[1] ^ ctx->S[2];
+
+    ctx->S[2] = a_mul(ctx->S[2]) ^ ctx->S[15] ^ ainv_mul(ctx->S[13]);
+    fsmtmp = ctx->r[1] + ctx->S[15];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[2] = in[2] ^ (ctx->r[0] + ctx->S[2]) ^ ctx->r[1] ^ ctx->S[3];
+
+    ctx->S[3] = a_mul(ctx->S[3]) ^ ctx->S[0] ^ ainv_mul(ctx->S[14]);
+    fsmtmp = ctx->r[1] + ctx->S[0];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[3] = in[3] ^ (ctx->r[0] + ctx->S[3]) ^ ctx->r[1] ^ ctx->S[4];
+
+    ctx->S[4] = a_mul(ctx->S[4]) ^ ctx->S[1] ^ ainv_mul(ctx->S[15]);
+    fsmtmp = ctx->r[1] + ctx->S[1];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[4] = in[4] ^ (ctx->r[0] + ctx->S[4]) ^ ctx->r[1] ^ ctx->S[5];
+
+    ctx->S[5] = a_mul(ctx->S[5]) ^ ctx->S[2] ^ ainv_mul(ctx->S[0]);
+    fsmtmp = ctx->r[1] + ctx->S[2];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[5] = in[5] ^(ctx->r[0] + ctx->S[5]) ^ ctx->r[1] ^ ctx->S[6];
+
+    ctx->S[6] = a_mul(ctx->S[6]) ^ ctx->S[3] ^ ainv_mul(ctx->S[1]);
+    fsmtmp = ctx->r[1] + ctx->S[3];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[6] = in[6] ^(ctx->r[0] + ctx->S[6]) ^ ctx->r[1] ^ ctx->S[7];
+
+    ctx->S[7] = a_mul(ctx->S[7]) ^ ctx->S[4] ^ ainv_mul(ctx->S[2]);
+    fsmtmp = ctx->r[1] + ctx->S[4];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[7] = in[7] ^(ctx->r[0] + ctx->S[7]) ^ ctx->r[1] ^ ctx->S[8];
+
+    ctx->S[8] = a_mul(ctx->S[8]) ^ ctx->S[5] ^ ainv_mul(ctx->S[3]);
+    fsmtmp = ctx->r[1] + ctx->S[5];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[8] = in[8] ^(ctx->r[0] + ctx->S[8]) ^ ctx->r[1] ^ ctx->S[9];
+
+    ctx->S[9] = a_mul(ctx->S[9]) ^ ctx->S[6] ^ ainv_mul(ctx->S[4]);
+    fsmtmp = ctx->r[1] + ctx->S[6];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[9] = in[9] ^(ctx->r[0] + ctx->S[9]) ^ ctx->r[1] ^ ctx->S[10];
+
+    ctx->S[10] = a_mul(ctx->S[10]) ^ ctx->S[7] ^ ainv_mul(ctx->S[5]);
+    fsmtmp = ctx->r[1] + ctx->S[7];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[10] = in[10] ^(ctx->r[0] + ctx->S[10]) ^ ctx->r[1] ^ ctx->S[11];
+
+    ctx->S[11] = a_mul(ctx->S[11]) ^ ctx->S[8] ^ ainv_mul(ctx->S[6]);
+    fsmtmp = ctx->r[1] + ctx->S[8];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[11] = in[11] ^ (ctx->r[0] + ctx->S[11]) ^ ctx->r[1] ^ ctx->S[12];
+
+    ctx->S[12] = a_mul(ctx->S[12]) ^ ctx->S[9] ^ ainv_mul(ctx->S[7]);
+    fsmtmp = ctx->r[1] + ctx->S[9];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[12] = in[12] ^ (ctx->r[0] + ctx->S[12]) ^ ctx->r[1] ^ ctx->S[13];
+
+    ctx->S[13] = a_mul(ctx->S[13]) ^ ctx->S[10] ^ ainv_mul(ctx->S[8]);
+    fsmtmp = ctx->r[1] + ctx->S[10];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[13] = in[13] ^ (ctx->r[0] + ctx->S[13]) ^ ctx->r[1] ^ ctx->S[14];
+
+    ctx->S[14] = a_mul(ctx->S[14]) ^ ctx->S[11] ^ ainv_mul(ctx->S[9]);
+    fsmtmp = ctx->r[1] + ctx->S[11];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[14] = in[14] ^ (ctx->r[0] + ctx->S[14]) ^ ctx->r[1] ^ ctx->S[15];
+
+    ctx->S[15] = a_mul(ctx->S[15]) ^ ctx->S[12] ^ ainv_mul(ctx->S[10]);
+    fsmtmp = ctx->r[1] + ctx->S[12];
+    ctx->r[1] = T(ctx->r[0]);
+    ctx->r[0] = fsmtmp;
+    out[15] = in[15] ^ (ctx->r[0] + ctx->S[15]) ^ ctx->r[1] ^ ctx->S[0];
+}
+
 Dstu8845Ctx *dstu8845_alloc()
 {
     Dstu8845Ctx *ctx = NULL;
@@ -960,11 +1061,7 @@ int dstu8845_crypt(Dstu8845Ctx *ctx, const uint8_t *in, size_t inl, uint8_t *out
     uint64_t keystream[16];
 
     for (; inl >= 128; inl -= 128, in += 128, out += 128) {
-        next_stream(ctx, keystream);
-
-        for (i = 0; i < 16; ++i) {
-            ((uint64_t *)out)[i] = ((uint64_t *)in)[i] ^ keystream[i];
-        }
+        next_stream_full_crypt(ctx, (uint64_t *)in, (uint64_t *)out);
     }
 
     if (inl > 0) {
