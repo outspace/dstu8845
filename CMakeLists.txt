@@ -10,7 +10,7 @@ set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O3")
 
 if (DIRTY)
-  set(CMAKE_C_FLAGS_RELEASE "-O3 -std=c11 -mavx2 -mavx -msse -msse2 -msse3 -mfpmath=sse")
+  set(CMAKE_C_FLAGS_RELEASE "-O3 -march=broadwell -mtune=broadwell")
 endif()	
 
 set(STRUMOK ./strumok.c)

@@ -18,6 +18,7 @@ jobs:
           clang-format-6.0
       - run: cmake ./ -DDIRTY=1   
       - run: make
+      - run: cat /proc/cpuinfo
       - run: ./main
 
 
@@ -37,6 +38,7 @@ jobs:
           cmake
       - run: cmake ./ -DDIRTY=1   
       - run: make
+      - run: cat /proc/cpuinfo      
       - run: ./main
       
 workflows:
